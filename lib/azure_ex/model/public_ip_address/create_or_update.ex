@@ -9,6 +9,7 @@ defmodule AzureEx.Model.PublicIPAddress.CreateOrUpdate do
     @derive Jason.Encoder
 
     field :publicIPAddressVersion, String.t()
+    field :dnsSettings, String.t()
   end
 
   typedstruct do

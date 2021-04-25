@@ -43,14 +43,14 @@ defmodule AzureEx.Request do
 
   @spec send(method, String.t(), data) :: httpoison_result
   defp send(:get, endpoint, _data) do
-    headers = [Authorization: "Bearer #{TokenHosting.get_token()}"]
+    headers = [Authorization: "Bearer #{TokenHosting.get_process_token()}"]
 
     HTTPoison.get(endpoint, headers, Config.http_options())
   end
 
   defp send(:post, endpoint, data) do
     headers = [
-      Authorization: "Bearer #{TokenHosting.get_token()}",
+      Authorization: "Bearer #{TokenHosting.get_process_token()}",
       "Content-Type": @data_content_type
     ]
 
@@ -61,7 +61,7 @@ defmodule AzureEx.Request do
 
   defp send(:put, endpoint, data) do
     headers = [
-      Authorization: "Bearer #{TokenHosting.get_token()}",
+      Authorization: "Bearer #{TokenHosting.get_process_token()}",
       "Content-Type": @data_content_type
     ]
 
@@ -71,7 +71,7 @@ defmodule AzureEx.Request do
   end
 
   defp send(:delete, endpoint, _data) do
-    headers = [Authorization: "Bearer #{TokenHosting.get_token()}"]
+    headers = [Authorization: "Bearer #{TokenHosting.get_process_token()}"]
 
     HTTPoison.delete(endpoint, headers, Config.http_options())
   end

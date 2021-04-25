@@ -6,7 +6,8 @@ defmodule AzureEx.Application do
   def start(_tuple, _args) do
     opts = [strategy: :one_for_one, name: AzureEx.Supervisor]
 
-    Supervisor.start_link([{AzureEx.TokenHosting, get_client_oauth_params()}], opts)
+#    Supervisor.start_link([{AzureEx.TokenHosting, get_client_oauth_params()}], opts)
+     Supervisor.start_link([], opts)
   end
 
   defp get_client_oauth_params do

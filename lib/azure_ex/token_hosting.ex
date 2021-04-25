@@ -39,8 +39,7 @@ defmodule AzureEx.TokenHosting do
           }
   end
 
-  def start_link(opts \\ []) do
-    name = Keyword.get(opts, :name, __MODULE__)
+  def start_link(opts \\ [], start_opts \\ []) do
     tenant = Keyword.get(opts, :tenant)
     client_id = Keyword.get(opts, :client_id)
     client_secret = Keyword.get(opts, :client_secret)
@@ -48,7 +47,7 @@ defmodule AzureEx.TokenHosting do
 
     {:ok, token} = apply_token(params)
 
-    GenServer.start_link(__MODULE__, %{params: params, token: token}, name: name)
+    GenServer.start_link(__MODULE__, %{params: params, token: token}, start_opts)
   end
 
   @scope "https://management.azure.com//.default"
@@ -89,7 +88,11 @@ defmodule AzureEx.TokenHosting do
     {:ok, state}
   end
 
-  def get_token do
+  def get_process_token() do
+    GenServer.call(Process.get(__MODULE__), :get)
+  end
+
+  def get_token(name) do
     GenServer.call(__MODULE__, :get)
   end
 
